@@ -18,16 +18,11 @@ pipeline
 
     agent
     {
-        kubernetes {
-      //cloud 'kubernetes'
-      label 'mypod'
-      containerTemplate {
-        name 'python'
-        image 'python'
-        ttyEnabled true
-        command 'cat'
-      }
-    }
+        dockerfile
+        {
+            filename 'Dockerfile'
+            args "-u root -v /var/run/docker.sock:/var/run/docker.sock"
+        }
     }
 
     stages
