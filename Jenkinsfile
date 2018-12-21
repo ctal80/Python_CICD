@@ -7,7 +7,8 @@ pipeline
         string(name: 'BRANCH', defaultValue: 'master', description: '<BR>Name of branch (default: master)')
         string(name: 'REQUIREMENTS_FILE', description: '<BR>Relative path to the requirements file')
         string(name: 'PYTHON_SCRIPT_FILE', description: '<BR><font color=RED>*</font> Relative path to the python script')
-        text(name: 'GROOVY_SCRIPT', defaultValue: '', description: '<BR>Insert a groovy script text to run.<BR>e.g.:<br>env.PARAM1=&quot;value1&quot;<br>env.PARAM2=&quot;value2&quot;')
+		string(name: 'PYTHON_TEST_SCRIPT_FILE', description: '<BR><font color=RED>*</font> Relative path to the python unit test script')
+		string(name: 'APP_Name', description: '<BR><font color=RED>*</font> Publish Application Name')
     }
 
     options
@@ -18,10 +19,9 @@ pipeline
 
     agent
     {
-        dockerfile
-        {
+       
             docker { image 'python:3.7' }
-        }
+       
     }
 
     stages
@@ -61,9 +61,51 @@ pipeline
                 {
                     writeFile encoding: 'UTF-8',file: './variables.groovy', text: GROOVY_SCRIPT
                     load './variables.groovy'
-                    sh "ls -la /var/run/docker.sock"
                     sh "python ./${PYTHON_SCRIPT_FILE}"
                 }
+            }
+        }
+		stage('Unit Test')
+        {
+            steps
+            {
+                script
+                {
+                    sh "python -m pytest -v ./${PYTHON_TEST_SCRIPT_FILE}"
+                }
+            }
+        }
+		
+		stage('Build Docker Image')
+        {
+            steps
+            {
+                script
+                {
+                    sh '''
+							docker build -f Dockerfile -t $TRAVIS_REPO_SLUG:$TAG .
+							  
+					   '''
+                }
+            }
+        }
+		
+		stage('Test Image')
+        {
+            steps
+            {
+                script
+                {
+                    sh 'echo "Tests passed"'
+                }
+            }
+        }
+		
+		stage('Publish Image')
+        {
+            docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
+                 app.push("${env.BUILD_NUMBER}")
+                 app.push("latest")
             }
         }
     }
