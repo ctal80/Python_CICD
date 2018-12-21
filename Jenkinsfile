@@ -20,8 +20,7 @@ pipeline
     {
         dockerfile
         {
-            filename 'Dockerfile'
-            args "-u root -v /var/run/docker.sock:/var/run/docker.sock"
+            docker { image 'python:3.7' }
         }
     }
 
