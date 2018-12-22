@@ -81,7 +81,7 @@ pipeline
             {
                 script
                 {   
-			sh "cd {APP_Name}/ && python -m pytest -v ./${PYTHON_TEST_SCRIPT_FILE}"
+			sh "cd ${APP_Name}/ && python -m pytest -v ./${PYTHON_TEST_SCRIPT_FILE}"
                 }
             }
         }
