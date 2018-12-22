@@ -20,10 +20,10 @@ pipeline
     agent
     {
        
-        docker
+        dockerfile
         {
-            image 'python:3.7'
-	    args "-u root -v /var/run/docker.sock:/var/run/docker.sock"
+            filename 'Dockerfile'
+            args "-u root -v /var/run/docker.sock:/var/run/docker.sock"
         }
             
        
