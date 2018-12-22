@@ -100,7 +100,7 @@ pipeline
                 script
                 {
                     sh  '''
-			docker build -f Dockerfile -t ${script}:LATEST .
+			docker build -f Sample_App/Dockerfile -t ${script}:LATEST .
 							  
 			'''
                 }
