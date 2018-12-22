@@ -8,7 +8,7 @@ pipeline
         string(name: 'REQUIREMENTS_FILE', defaultValue:'Sample_App/requirements.txt', description: '<BR>Relative path to the requirements file')
         string(name: 'PYTHON_SCRIPT_FILE', defaultValue: 'Sample_App/buzz/generator.py', description: '<BR><font color=RED>*</font> Relative path to the python script')
 	string(name: 'PYTHON_TEST_SCRIPT_FILE', defaultValue:'tests/test_generator.py', description: '<BR><font color=RED>*</font> Relative path to the python unit test script')
-	string(name: 'APP_Name', defaultValue: 'DemoApp', description: '<BR><font color=RED>*</font> Publish Application Name')
+	string(name: 'APP_Name', defaultValue: 'Sample_App', description: '<BR><font color=RED>*</font> Publish Application Name')
     }
 
     options
@@ -76,7 +76,7 @@ pipeline
             {
                 script
                 {   
-                    sh "cd Sample_App/ && python -m pytest -v ./${PYTHON_TEST_SCRIPT_FILE}"
+			sh "cd "{APP_Name}"/ && python -m pytest -v ./${PYTHON_TEST_SCRIPT_FILE}"
                 }
             }
         }
@@ -99,10 +99,7 @@ pipeline
             {
                 script
                 {
-                    sh  '''
-			docker build -f Sample_App/Dockerfile -t ${script}:LATEST .
-							  
-			'''
+                    sh  "docker build -f ${APP_Name}/Dockerfile -t ${APP_Name}:LATEST ."
                 }
             }
         }
@@ -126,7 +123,7 @@ pipeline
                 script
                 {
                     sh '''
-		         docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
+		         docker login -e ctal80@gmail.com -u $DOCKER_USER -p $DOCKER_PASS
                          docker push ${script}:LATEST
 			
 		       '''
