@@ -104,8 +104,8 @@ pipeline
             {
                 script
                 {  
-		    sh "cd ${APP_Name}"
-                    docker.build registry + ":$BUILD_NUMBER"
+		    docker.build(registry + ":$BUILD_NUMBER", "-f docker/db/Dockerfile .")
+                    
                 }
             }
         }
