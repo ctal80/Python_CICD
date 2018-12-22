@@ -7,8 +7,8 @@ pipeline
         string(name: 'BRANCH', defaultValue: 'master', description: '<BR>Name of branch (default: master)')
         string(name: 'REQUIREMENTS_FILE', defaultValue:'Sample_App/requirements.txt', description: '<BR>Relative path to the requirements file')
         string(name: 'PYTHON_SCRIPT_FILE', defaultValue: 'Sample_App/buzz/generator.py', description: '<BR><font color=RED>*</font> Relative path to the python script')
-		string(name: 'PYTHON_TEST_SCRIPT_FILE', defaultValue:'tests/test_generator.py', description: '<BR><font color=RED>*</font> Relative path to the python unit test script')
-		string(name: 'APP_Name', defaultValue: 'DemoApp', description: '<BR><font color=RED>*</font> Publish Application Name')
+	string(name: 'PYTHON_TEST_SCRIPT_FILE', defaultValue:'tests/test_generator.py', description: '<BR><font color=RED>*</font> Relative path to the python unit test script')
+	string(name: 'APP_Name', defaultValue: 'DemoApp', description: '<BR><font color=RED>*</font> Publish Application Name')
     }
 
     options
@@ -20,10 +20,9 @@ pipeline
     agent
     {
        
-        dockerfile
+        docker
         {
-            filename 'Dockerfile'
-            args "-u root -v /var/run/docker.sock:/var/run/docker.sock"
+            image 'python3'
         }
             
        
@@ -70,7 +69,7 @@ pipeline
                 }
             }
         }
-		stage('Unit Test')
+	stage('Unit Test')
         {
             steps
             {
@@ -92,22 +91,26 @@ pipeline
             }
         }
 		
-		stage('Build Docker Image')
+	stage('Build Docker Image')
         {
+	    agent {
+                docker { image 'docker' }
+            }
             steps
             {
                 script
                 {
                     sh  '''
-							docker build -f Dockerfile -t ${script}:LATEST .
+			docker build -f Dockerfile -t ${script}:LATEST .
 							  
-					'''
+			'''
                 }
             }
         }
 		
-		stage('Test Image')
+	stage('Test Image')
         {
+		
             steps
             {
                 script
@@ -117,7 +120,7 @@ pipeline
             }
         }
 		
-		stage('Publish Image')
+	stage('Publish Image')
         {
             steps
             {
