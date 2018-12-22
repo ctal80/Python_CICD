@@ -6,7 +6,6 @@ RUN pip install boto
 RUN pip install credstash
 RUN pip install fasteners
 RUN pip install futures
-RUN pip install pyfscache
 RUN pip install PyYAML
 RUN pip install hvac
 RUN pip install awscli
