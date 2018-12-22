@@ -18,7 +18,7 @@ pipeline
     }
     
     environment {
-	    registry = "docker_hub_account/${APP_Name}"
+	    registry = "ctal80/${APP_Name.toLowerCase()}"
             registryCredential = 'dockerhub'
     }
 
@@ -121,17 +121,15 @@ pipeline
             }
         }
 		
-	stage('Publish Image')
+	stage('Deploy Image')
         {
             steps
             {
                 script
                 {
-                    sh '''
-		         docker login -e $$DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
-                         docker push ${script}:LATEST
-			
-		       '''
+                    docker.withRegistry( ‘’, registryCredential ) {
+                      dockerImage.push()
+                    }
                 }
             }
         }
