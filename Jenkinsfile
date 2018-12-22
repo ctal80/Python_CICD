@@ -95,8 +95,11 @@ pipeline
 	stage('Build Docker Image')
         {
 	    agent {
-                docker { image 'docker' }
-		args "-u root -v /var/run/docker.sock:/var/run/docker.sock"
+                docker { 
+			image 'docker'
+			args "-u root -v /var/run/docker.sock:/var/run/docker.sock"
+		}
+		
             }
             steps
             {
@@ -132,7 +135,11 @@ pipeline
             {
                 script
                 {
-                    sh 'echo "Image Published"'
+                    sh '''
+		         docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
+                         docker push ${script}:LATEST
+			
+		       '''
                 }
             }
         }
