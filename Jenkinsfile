@@ -110,7 +110,7 @@ pipeline
                 script
                 {
                     sh  '''
-			docker build -f Dockerfile -t ${script}:LATEST .
+			docker ps
 							  
 			'''
                 }
