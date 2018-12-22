@@ -23,6 +23,7 @@ pipeline
         docker
         {
             image 'python:3.7'
+	    args "-u root -v /var/run/docker.sock:/var/run/docker.sock"
         }
             
        
@@ -53,7 +54,7 @@ pipeline
                 sh '''
                     
                     if [ "x${REQUIREMENTS_FILE}" != "x" ] && [ -f ${REQUIREMENTS_FILE} ]; then 
-                        sudo pip install -r ${REQUIREMENTS_FILE}; 
+                        pip install -r ${REQUIREMENTS_FILE}; 
                     fi
                 '''
             }
