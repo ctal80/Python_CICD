@@ -1,4 +1,4 @@
-from python:3.7
+FROM python:3.7
 
 USER root
 RUN apt-get update -qq \
