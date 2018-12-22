@@ -103,7 +103,8 @@ pipeline
             steps
             {
                 script
-                {
+                {  
+		    sh "cd ${APP_Name}"
                     docker.build registry + ":$BUILD_NUMBER"
                 }
             }
@@ -127,7 +128,7 @@ pipeline
             {
                 script
                 {
-                    docker.withRegistry( ‘’, registryCredential ) {
+                    docker.withRegistry( '', registryCredential ) {
                       dockerImage.push()
                     }
                 }
