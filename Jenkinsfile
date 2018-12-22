@@ -22,7 +22,7 @@ pipeline
        
         docker
         {
-            image 'python3'
+            image 'python3.7'
         }
             
        
