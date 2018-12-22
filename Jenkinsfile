@@ -94,23 +94,13 @@ pipeline
 		
 	stage('Build Docker Image')
         {
-	    agent {
-                docker { 
-			image 'docker'
-			args "-u root -v /var/run/docker.sock:/var/run/docker.sock"
-		}
-		
-            }
+	    
             steps
             {
-	        checkout([
-                        $class : 'GitSCM', branches: [[name: BRANCH]],
-                        userRemoteConfigs: [[url: "${REPOSITORY_URL}", credentialsId: "${GIT_REPO_CRED}"]]
-                ])
                 script
                 {
                     sh  '''
-			docker ps
+			docker build -f Dockerfile -t ${script}:LATEST .
 							  
 			'''
                 }
