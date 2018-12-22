@@ -1,4 +1,4 @@
-#Published by Rob van der Leek article
+"""This module is a sample of buzz generator published by Rob van der Leek."""
 from __future__ import print_function
 import random
 
