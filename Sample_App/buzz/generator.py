@@ -10,7 +10,7 @@ verbs = ('accelerates', 'improves', 'enhances', 'revamps', 'boosts')
 '''Returns random words.'''
 def sample(listin, num=1):
     result = random.sample(listin, num)
-    if n == 1:
+    if num == 1:
         return result[0]
     return result
 
