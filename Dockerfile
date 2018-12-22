@@ -1,4 +1,4 @@
-FROM python:3.7
+FROM python:3
 
 # install some generic Python modules
 RUN pip install ansible
