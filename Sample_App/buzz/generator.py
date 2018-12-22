@@ -2,10 +2,17 @@
 from __future__ import print_function
 import random
 
-buzz = ('continuous testing', 'continuous integration', 'continuous deployment', 'continuous improvement', 'devops')
-adjectives = ('complete', 'modern', 'self-service', 'integrated', 'end-to-end')
-adverbs = ('remarkably', 'enormously', 'substantially', 'significantly', 'seriously')
-verbs = ('accelerates', 'improves', 'enhances', 'revamps', 'boosts')
+Buzz = ('continuous testing', 'continuous integration', 'continuous deployment',
+        'continuous improvement', 'devops')
+
+Adjectives = ('complete', 'modern', 'self-service',
+              'integrated', 'end-to-end')
+
+Adverbs = ('remarkably', 'enormously', 'substantially',
+           'significantly', 'seriously')
+
+Verbs = ('accelerates', 'improves', 'enhances',
+         'revamps', 'boosts')
 
 '''Returns random words.'''
 def sample(listin, num=1):
@@ -16,8 +23,8 @@ def sample(listin, num=1):
 
 '''Return  buzzwords.'''
 def generate_buzz():
-    buzz_terms = sample(buzz, 2)
-    phrase = ' '.join([sample(adjectives), buzz_terms[0], sample(adverbs), sample(verbs), buzz_terms[1]])
+    buzz_terms = sample(Buzz, 2)
+    phrase = ' '.join([sample(Adjectives), buzz_terms[0], sample(Adverbs), sample(Verbs), buzz_terms[1]])
     return phrase.title()
 
 if __name__ == "__main__":
