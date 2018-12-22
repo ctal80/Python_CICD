@@ -100,6 +100,10 @@ pipeline
             }
             steps
             {
+	        checkout([
+                        $class : 'GitSCM', branches: [[name: BRANCH]],
+                        userRemoteConfigs: [[url: "${REPOSITORY_URL}", credentialsId: "${GIT_REPO_CRED}"]]
+                ])
                 script
                 {
                     sh  '''
