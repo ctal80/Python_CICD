@@ -16,6 +16,11 @@ pipeline
         buildDiscarder(logRotator(numToKeepStr: '100', daysToKeepStr: '45'))
         timestamps()
     }
+    
+    environment {
+	    registry = "docker_hub_account/${APP_Name}"
+            registryCredential = 'dockerhub'
+    }
 
     agent
     {
@@ -76,7 +81,7 @@ pipeline
             {
                 script
                 {   
-			sh "cd "{APP_Name}"/ && python -m pytest -v ./${PYTHON_TEST_SCRIPT_FILE}"
+			sh "cd {APP_Name}/ && python -m pytest -v ./${PYTHON_TEST_SCRIPT_FILE}"
                 }
             }
         }
@@ -99,7 +104,7 @@ pipeline
             {
                 script
                 {
-                    sh  "docker build -f ${APP_Name}/Dockerfile -t ${APP_Name}:LATEST ."
+                    docker.build registry + ":$BUILD_NUMBER"
                 }
             }
         }
@@ -123,7 +128,7 @@ pipeline
                 script
                 {
                     sh '''
-		         docker login -e ctal80@gmail.com -u $DOCKER_USER -p $DOCKER_PASS
+		         docker login -e $$DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
                          docker push ${script}:LATEST
 			
 		       '''
