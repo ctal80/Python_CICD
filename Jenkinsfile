@@ -53,7 +53,7 @@ pipeline
                 sh '''
                     
                     if [ "x${REQUIREMENTS_FILE}" != "x" ] && [ -f ${REQUIREMENTS_FILE} ]; then 
-                        pip install -r ${REQUIREMENTS_FILE}; 
+                        sudo pip install -r ${REQUIREMENTS_FILE}; 
                     fi
                 '''
             }
