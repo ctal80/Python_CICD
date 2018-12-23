@@ -19,7 +19,7 @@ pipeline
     
     environment {
 	    registry = "ctal80/${APP_Name.toLowerCase()}"
-            registryCredential = 'dockerhub'
+            registryCredential = '1325c74b-9fce-4d53-bc30-30c8fa5507bb'
     }
 
     agent
