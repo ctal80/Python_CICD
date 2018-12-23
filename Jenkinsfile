@@ -1,20 +1,3 @@
-Skip to content
- 
-Search or jump to…
-
-Pull requests
-Issues
-Marketplace
-Explore
- @ctal80 Sign out
-1
-0 0 ctal80/Python_CICD
- Code  Issues 0  Pull requests 0  Projects 0  Wiki  Insights  Settings
-Python_CICD/Jenkinsfile
-2e7d7b0  15 minutes ago
-@ctal80 ctal80 Update Jenkinsfile
-     
-139 lines (121 sloc)  3.75 KB
 pipeline
 {
     parameters
