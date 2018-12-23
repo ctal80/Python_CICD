@@ -104,7 +104,7 @@ pipeline
             {
                 script
                 {  
-		    docker.build(registry + ":$BUILD_NUMBER", "-f ${APP_Name}/Dockerfile .")
+			docker.build("$registry" + ":$BUILD_NUMBER", "-f ${APP_Name}/Dockerfile .")
                     
                 }
             }
