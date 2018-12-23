@@ -1,3 +1,20 @@
+Skip to content
+ 
+Search or jump to…
+
+Pull requests
+Issues
+Marketplace
+Explore
+ @ctal80 Sign out
+1
+0 0 ctal80/Python_CICD
+ Code  Issues 0  Pull requests 0  Projects 0  Wiki  Insights  Settings
+Python_CICD/Jenkinsfile
+2e7d7b0  15 minutes ago
+@ctal80 ctal80 Update Jenkinsfile
+     
+139 lines (121 sloc)  3.75 KB
 pipeline
 {
     parameters
@@ -135,4 +152,24 @@ pipeline
             }
         }
     }
+	post {
+	   success { 
+	       emailext (
+			  subject: "SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
+			  body: """<p>SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
+				<p>Check console output at &QUOT;<a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>&QUOT;</p>""",
+			  recipientProviders: [[$class: 'DevelopersRecipientProvider']]
+         )
+	   }
+	   
+	   failure {
+	         emailext (
+				  subject: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
+				  body: """<p>FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
+					<p>Check console output at &QUOT;<a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>&QUOT;</p>""",
+				  recipientProviders: [[$class: 'DevelopersRecipientProvider']]
+			 )
+	   
+	   }
+	}
 }
