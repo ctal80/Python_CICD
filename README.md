@@ -4,8 +4,8 @@ This project is based on Jenkins scripted pipeline which is executing Devops CI/
 
 The current pipeline includes the following stages:
 
-Pulling Source
-Python lint 
-Python unit test execution
-Wrraping the APP into a Docker continer 
-Push the Docer Container into Dockerhub
+Pulling Source code from Git,
+Running Python linter, 
+Python unit test execution,
+Wrraping the APP into a Docker continer, 
+Push the Docer Container into Dockerhub.
