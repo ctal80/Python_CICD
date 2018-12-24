@@ -126,11 +126,12 @@ pipeline
         {
             steps
             {
-		withCredentials([string(credentialsId: '1325c74b-9fce-4d53-bc30-30c8fa5507bb', variable: 'USERPASS')]) {
-		    sh '''
-		        docker login -u ctal80 -p "$USERPASS"
-			docker push "$registry"
-		    '''
+		
+		 withCredentials([usernameColonPassword(credentialsId: '1325c74b-9fce-4d53-bc30-30c8fa5507bb', variable: 'USERPASS')]) {
+			  sh '''
+			     docker login -u ctal80 -p "$USERPASS"
+			     docker push "ctal80/${APP_Name.toLowerCase()}"
+			    '''
 		  }
                
             }
