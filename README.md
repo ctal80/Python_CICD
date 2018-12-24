@@ -9,3 +9,4 @@ Running Python linter,
 Python unit test execution,
 Wrraping the APP into a Docker continer, 
 Push the Docer Container into Dockerhub.
+
