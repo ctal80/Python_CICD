@@ -10,3 +10,4 @@ RUN add-apt-repository \
    stable"
 RUN apt-get update  -qq \
     && apt-get install docker-ce=17.12.1~ce-0~debian -y
+    
