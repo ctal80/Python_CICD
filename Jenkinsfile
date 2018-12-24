@@ -127,13 +127,18 @@ pipeline
             steps
             {
 		
-		 withCredentials([usernameColonPassword(credentialsId: '1325c74b-9fce-4d53-bc30-30c8fa5507bb', variable: 'USERPASS')]) {
-			  sh '''
-			     docker login -u ctal80 -p "$USERPASS"
+		    
+		 withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: '1325c74b-9fce-4d53-bc30-30c8fa5507bb',
+		 usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
+
+			sh '''
+			     echo uname=$USERNAME pwd=$PASSWORD
+			     docker login -u $USERNAME -p $PASSWORD
 			     docker push "ctal80/${APP_Name.toLowerCase()}"
-			    '''
-		  }
-               
+			   '''
+		 }
+		    
+
             }
         }
     }
