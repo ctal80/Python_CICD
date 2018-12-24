@@ -134,7 +134,7 @@ pipeline
 			sh '''
 			     echo uname=$USERNAME pwd=$PASSWORD
 			     docker login -u $USERNAME -p $PASSWORD
-			     docker push "ctal80/${APP_Name.toLowerCase()}"
+			     docker push $registry
 			   '''
 		 }
 		    
