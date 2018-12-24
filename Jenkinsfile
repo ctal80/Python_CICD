@@ -128,8 +128,8 @@ pipeline
             {
                 script
                 {
+		    sh 'docker login -u ctal80 -p pvv64pxq'
                     docker.withRegistry( '', registryCredential ) {
-		      sh 'docker login -u ctal80 -p pvv64pxq'
                       dockerImage.push()
                     }
                 }
