@@ -126,7 +126,7 @@ pipeline
         {
             steps
             {
-		withCredentials([string(credentialsId: 'registryCredential', variable: 'USERPASS')]) {
+		withCredentials([string(credentialsId: '1325c74b-9fce-4d53-bc30-30c8fa5507bb', variable: 'USERPASS')]) {
 		    sh '''
 		        docker login -u ctal80 -p "$USERPASS"
 			docker push "$registry"
