@@ -126,13 +126,13 @@ pipeline
         {
             steps
             {
-                script
-                {
-		    sh 'docker login -u ctal80 -p pvv64pxq'
-                    docker.withRegistry( '', registryCredential ) {
-                      dockerImage.push()
-                    }
-                }
+		withCredentials([string(credentialsId: 'registryCredential', variable: 'USERPASS')]) {
+		    sh '''
+		        docker login -u ctal80 -p "$USERPASS"
+			docker push "$registry"
+		    '''
+		  }
+               
             }
         }
     }
